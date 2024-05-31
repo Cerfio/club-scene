@@ -14,8 +14,9 @@ export class UsersService {
                 data,
             });
         } catch (error) {
+            console.log(error);
             if (error.code === 'P2002') {
-                throw new ConflictException('User already exists');
+                throw new ConflictException('Email or username already exists');
             }
             throw new InternalServerErrorException('Something went wrong');
         }
