@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, Matches } from "class-validator";
+import { IsEmail, IsNotEmpty, IsString, IsUrl, Matches, isString } from "class-validator";
 
 export class RegisterDtoInput {
 	@IsEmail()
@@ -9,4 +9,13 @@ export class RegisterDtoInput {
         message: 'password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
     })
 	password: string;
+
+	@IsString()
+	username: string;
+
+	@IsString()
+	description: string;
+
+	@IsUrl()
+	profilePicture: string;
 }

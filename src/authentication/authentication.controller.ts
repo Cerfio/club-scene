@@ -16,6 +16,13 @@ export class AuthenticationController {
       data: {
         email: data.email,
         password: hash,
+        profile: {
+          create: {
+            username: data.username,
+            avatar: data.profilePicture,
+            description: data.description,
+          }
+        }
       },
     });
     const token = crypto.randomUUID();

@@ -27,7 +27,7 @@ model User {
 model Session {
   id        String   @id @default(cuid())
   token     String   @unique
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -36,7 +36,7 @@ model Session {
 model ResetPassword {
   id        String   @id @default(cuid())
   token     String
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -44,15 +44,12 @@ model ResetPassword {
 
 model Profile {
   id          String   @id @default(cuid())
-  firstname   String
-  lastname    String
   username    String   @unique
-  bio         String?
-  externalUrl String?
-  avatar      String?
+  description String
+  avatar      String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  user        User     @relation(fields: [userId], references: [id])
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String   @unique
   medias      Media[]
   views       View[]
@@ -62,9 +59,10 @@ model Profile {
 
 model Media {
   id          String   @id @default(cuid())
+  title       String
   description String
   url         String
-  profile     Profile  @relation(fields: [profileId], references: [id])
+  profile     Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
   profileId   String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -73,9 +71,9 @@ model Media {
 
 model View {
   id        String   @id @default(cuid())
-  profile   Profile  @relation(fields: [profileId], references: [id])
+  profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
   profileId String
-  media     Media    @relation(fields: [mediaId], references: [id])
+  media     Media    @relation(fields: [mediaId], references: [id], onDelete: Cascade)
   mediaId   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -83,9 +81,9 @@ model View {
 
 model Follow {
   id          String   @id @default(cuid())
-  follower    Profile  @relation("follower", fields: [followerId], references: [id])
+  follower    Profile  @relation("follower", fields: [followerId], references: [id], onDelete: Cascade)
   followerId  String
-  following   Profile  @relation("following", fields: [followingId], references: [id])
+  following   Profile  @relation("following", fields: [followingId], references: [id], onDelete: Cascade)
   followingId String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
