@@ -7,6 +7,6 @@ import { SessionsModule } from 'src/sessions/sessions.module';
 @Module({
   imports: [SessionsModule],
   controllers: [UsersController],
-  providers: [UsersService, PrismaService,],
+  providers: [UsersService, PrismaService],
 })
 export class UsersModule { }

@@ -8,5 +8,6 @@ import { SessionsModule } from 'src/sessions/sessions.module';
   imports: [SessionsModule],
   controllers: [ProfileController],
   providers: [ProfilesService, PrismaService],
+  exports: [ProfilesService]
 })
 export class ProfilesModule { }

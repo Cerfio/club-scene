@@ -64,12 +64,21 @@ export class AuthenticationController {
       throw new BadRequestException("Invalid credentials");
     }
 
-    const tokenString = crypto.randomUUID();
-
+    const token = crypto.randomUUID();
+    await this.sessionService.create({
+      data: {
+        token,
+        user: {
+          connect: {
+            id: user.id,
+          },
+        },
+      },
+    });
     return {
       message: 'Login successful',
       data: {
-        token: tokenString,
+        token: token,
       },
     };
   }

@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'prisma/prisma/prisma.service';
 
@@ -6,28 +6,45 @@ import { PrismaService } from 'prisma/prisma/prisma.service';
 export class FollowersService {
     constructor(private prismaService: PrismaService) { }
 
+    async get({ where }: { where: Prisma.FollowWhereUniqueInput }) {
+        try {
+            return await this.prismaService.follow.findUnique({
+                where,
+            });
+        } catch (error) {
+            throw new InternalServerErrorException('something went wrong');
+        }
+    }
+
     async create({ data }: { data: Prisma.FollowCreateInput }) {
         try {
             return await this.prismaService.follow.create({
                 data,
             });
         } catch (error) {
-            if (error.code === 'P2025') {
-                throw new NotFoundException('profile not found');
-            }
+            throw new InternalServerErrorException('something went wrong');
         }
     }
 
-    async findAll(where: Prisma.FollowWhereInput) {
-        return await this.prismaService.follow.findMany({
-            where,
-        });
+    async findAll({ where, include }: { where: Prisma.FollowWhereInput, include?: Prisma.FollowInclude }) {
+        try {
+            return await this.prismaService.follow.findMany({
+                where,
+                include,
+            });
+        } catch (error) {
+            throw new InternalServerErrorException('something went wrong');
+        }
     }
 
     async delete({ where }: { where: Prisma.FollowWhereUniqueInput }) {
-        return await this.prismaService.follow.delete({
-            where,
-        });
+        try {
+            return await this.prismaService.follow.delete({
+                where,
+            });
+        } catch (error) {
+            throw new InternalServerErrorException('something went wrong');
+        }
     }
 }
 

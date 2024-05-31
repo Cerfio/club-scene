@@ -44,7 +44,7 @@ model ResetPassword {
 
 model Profile {
   id          String   @id @default(cuid())
-  username    String   @unique
+  username    String
   description String
   avatar      String
   createdAt   DateTime @default(now())
@@ -87,4 +87,6 @@ model Follow {
   followingId String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+
+  @@unique([followerId, followingId])
 }
