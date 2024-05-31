@@ -16,21 +16,22 @@ export class FollowersService {
         }
     }
 
-    async create({ data }: { data: Prisma.FollowCreateInput }) {
+    async create({ data, select }: { data: Prisma.FollowCreateInput, select?: Prisma.FollowSelect }) {
         try {
             return await this.prismaService.follow.create({
                 data,
+                select,
             });
         } catch (error) {
             throw new InternalServerErrorException('something went wrong');
         }
     }
 
-    async findAll({ where, include }: { where: Prisma.FollowWhereInput, include?: Prisma.FollowInclude }) {
+    async findAll({ where, select }: { where: Prisma.FollowWhereInput, select?: Prisma.FollowInclude }) {
         try {
             return await this.prismaService.follow.findMany({
                 where,
-                include,
+                select,
             });
         } catch (error) {
             throw new InternalServerErrorException('something went wrong');

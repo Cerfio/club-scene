@@ -29,10 +29,11 @@ export class MediaService {
     }
 
     //feed //user posts
-    async findAll(where: Prisma.MediaWhereInput) {
+    async findAll({ where, orderBy }: { where: Prisma.MediaWhereInput, orderBy?: Prisma.MediaOrderByWithRelationInput | Prisma.MediaOrderByWithRelationInput[] }) {
         try {
             return await this.prismaService.media.findMany({
                 where,
+                orderBy,
             });
         } catch (error) {
             throw new InternalServerErrorException('Something went wrong');

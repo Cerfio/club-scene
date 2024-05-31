@@ -30,12 +30,15 @@ export class MediaController {
     }
   }
 
+  @UseInterceptors(TokenGuard)
   @Get()
   async findAll(@Req() req: RequestWithAuthId) {
     const medias = await this.mediaService.findAll({
-      profile: {
-        userId: req.authId,
-      }
+      where: {
+        profile: {
+          userId: req.authId,
+        },
+      },
     });
     return {
       message: 'Media fetched successfully',
