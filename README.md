@@ -34,4 +34,3 @@ Here are the routes available in the application:
 - **GET /feed**: To get the feed of medias from followed users.
 
 Note: Replace ":id" in routes with the specific identifier.
-```
